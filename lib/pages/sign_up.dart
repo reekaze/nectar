@@ -6,8 +6,8 @@ import 'package:nectar/controllers/sign_up_controller.dart';
 import 'package:nectar/widgets/custom_elevated_button.dart';
 import 'package:nectar/widgets/custom_scaffold.dart';
 
-class SignUp extends StatelessWidget {
-  SignUp({Key? key}) : super(key: key);
+class SignUpPage extends StatelessWidget {
+  SignUpPage({Key? key}) : super(key: key);
 
   SignUpController signUpController = Get.put(SignUpController());
 

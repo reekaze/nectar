@@ -4,9 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:nectar/pages/get_started.dart';
+import 'package:nectar/pages/home.dart';
 import 'package:nectar/pages/login.dart';
 import 'package:nectar/pages/phone_number.dart';
+import 'package:nectar/pages/select_location.dart';
 import 'package:nectar/pages/sign_up.dart';
+import 'package:nectar/pages/verification.dart';
 
 main() async {
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
@@ -29,19 +32,13 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(fontFamily: "Poppins"),
       initialRoute: 'getStarted',
       getPages: [
-        GetPage(
-            name: "/getStarted",
-            page: () => GetStartedPage(),
-            transition: Transition.zoom),
-        GetPage(
-            name: '/login',
-            page: () => LoginPage(),
-            transition: Transition.zoom),
-        GetPage(name: '/signUp', page: () => SignUp()),
-        GetPage(
-          name: '/phoneNumber',
-          page: () => PhoneNumber(),
-        )
+        GetPage(name: '/getStarted', page: () => GetStartedPage()),
+        GetPage(name: '/login', page: () => LoginPage()),
+        GetPage(name: '/signUp', page: () => SignUpPage()),
+        GetPage(name: '/phoneNumber', page: () => PhoneNumberPage()),
+        GetPage(name: '/verification', page: () => VerificationPage()),
+        GetPage(name: '/selectLocation', page: () => SelectLocationPage()),
+        GetPage(name: '/home', page: () => HomePage()),
       ],
     );
   }

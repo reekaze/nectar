@@ -5,10 +5,11 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 import 'package:nectar/controllers/phone_number_controller.dart';
+import 'package:nectar/pages/verification.dart';
 import 'package:nectar/widgets/custom_scaffold.dart';
 
-class PhoneNumber extends StatelessWidget {
-  PhoneNumber({Key? key}) : super(key: key);
+class PhoneNumberPage extends StatelessWidget {
+  PhoneNumberPage({Key? key}) : super(key: key);
   List<List<String>> country = [
     ["62", "ID"],
     ["60", "MY"],
@@ -66,75 +67,88 @@ class PhoneNumber extends StatelessWidget {
                                 color: Color(0XFF7C7C7C),
                                 fontWeight: FontWeight.bold),
                           ),
-                          Row(
-                            children: [
-                              SizedBox(
-                                width: 50,
-                                child: DropdownButtonFormField(
-                                    decoration: InputDecoration(
-                                        border: InputBorder.none),
-                                    iconSize: 0,
-                                    hint: Text(
-                                      "Code",
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                    isExpanded: true,
-                                    items: country.map((c) {
-                                      var index = country.indexOf(c);
-                                      return DropdownMenuItem(
-                                          value: c[0],
-                                          child: c[1] != "Other"
-                                              ? Row(
-                                                  children: [
-                                                    Flag.fromString(
-                                                      c[1],
-                                                      width: 30,
-                                                      height: 30,
-                                                    ),
-                                                  ],
-                                                )
-                                              : Text("Other",
-                                                  style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.bold)));
-                                    }).toList(),
-                                    onChanged: (value) {
-                                      phoneNumberController
-                                          .changeSelectedCountry(
-                                              value.toString());
-                                    }),
-                              ),
-                              Expanded(
-                                  child: Obx(
-                                () => TextField(
-                                  keyboardType: TextInputType.number,
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 18),
-                                  decoration: InputDecoration(
-                                      prefixIconConstraints: BoxConstraints(
-                                          minHeight: 0, minWidth: 0),
-                                      prefixIcon: phoneNumberController
-                                                      .selectedCountry !=
-                                                  "" &&
-                                              phoneNumberController
-                                                      .selectedCountry !=
-                                                  "0"
-                                          ? Text(
-                                              "+" +
-                                                  phoneNumberController
-                                                      .selectedCountry.value
-                                                      .toString(),
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 18),
-                                            )
-                                          : Text(""),
-                                      border: InputBorder.none),
+                          Obx(
+                            () => Row(
+                              children: [
+                                SizedBox(
+                                  width:
+                                      phoneNumberController.selectedCountry ==
+                                              ""
+                                          ? 60
+                                          : 50,
+                                  child: DropdownButtonFormField(
+                                      decoration: InputDecoration(
+                                          border: InputBorder.none),
+                                      iconSize: 15,
+                                      icon: Visibility(
+                                          visible: phoneNumberController
+                                                      .selectedCountry ==
+                                                  ""
+                                              ? true
+                                              : false,
+                                          child: Icon(Icons.arrow_downward)),
+                                      hint: Text(
+                                        "Code",
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.black),
+                                      ),
+                                      isExpanded: true,
+                                      items: country.map((c) {
+                                        var index = country.indexOf(c);
+                                        return DropdownMenuItem(
+                                            value: c[0],
+                                            child: c[1] != "Other"
+                                                ? Row(
+                                                    children: [
+                                                      Flag.fromString(
+                                                        c[1],
+                                                        width: 30,
+                                                        height: 30,
+                                                      ),
+                                                    ],
+                                                  )
+                                                : Text("Other",
+                                                    style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold)));
+                                      }).toList(),
+                                      onChanged: (value) {
+                                        phoneNumberController
+                                            .changeSelectedCountry(
+                                                value.toString());
+                                      }),
                                 ),
-                              ))
-                            ],
+                                Expanded(
+                                  child: TextField(
+                                    keyboardType: TextInputType.number,
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 18),
+                                    decoration: InputDecoration(
+                                        prefixIconConstraints: BoxConstraints(
+                                            minHeight: 0, minWidth: 0),
+                                        prefixIcon: phoneNumberController
+                                                        .selectedCountry !=
+                                                    "" &&
+                                                phoneNumberController
+                                                        .selectedCountry !=
+                                                    "0"
+                                            ? Text(
+                                                "+" +
+                                                    phoneNumberController
+                                                        .selectedCountry.value
+                                                        .toString(),
+                                                style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 18),
+                                              )
+                                            : Text(""),
+                                        border: InputBorder.none),
+                                  ),
+                                )
+                              ],
+                            ),
                           ),
                           Divider(
                             thickness: 1,
@@ -160,21 +174,20 @@ class PhoneNumber extends StatelessWidget {
             Positioned(
               bottom: 20,
               right: 20,
-              child: InkWell(
-                onTap: () {},
-                child: ClipOval(
-                  child: Material(
-                    color: Color(0XFF53b175),
-                    child: InkWell(
-                      splashColor: Colors.white,
-                      onTap: () {},
-                      child: SizedBox(
-                        height: 67,
-                        width: 67,
-                        child: Icon(
-                          Icons.keyboard_arrow_right,
-                          color: Colors.white,
-                        ),
+              child: ClipOval(
+                child: Material(
+                  color: Color(0XFF53b175),
+                  child: InkWell(
+                    splashColor: Colors.white,
+                    onTap: () {
+                      Get.toNamed('/verification');
+                    },
+                    child: SizedBox(
+                      height: 67,
+                      width: 67,
+                      child: Icon(
+                        Icons.keyboard_arrow_right,
+                        color: Colors.white,
                       ),
                     ),
                   ),
