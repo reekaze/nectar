@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "806968441299-g7a05akv4ctgdhtkamuv1gs3hi69rkpe.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.nectar",
+            "certificate_hash": "38dd07ac3a17031cbddbf23cd9b280f24f4a0ffb"
+          }
+        },
+        {
           "client_id": "806968441299-s5tf3lm28vlf51jli2mf96egtrn6gepk.apps.googleusercontent.com",
           "client_type": 3
         }

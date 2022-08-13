@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nectar/controllers/login_controller.dart';
@@ -128,7 +126,11 @@ class LoginPage extends StatelessWidget {
                         SizedBox(
                           width: MediaQuery.of(context).size.width,
                           child: CUstomElevatedButton(
-                              text: "Login", size: 18, onPressed: () {}),
+                              text: "Login",
+                              size: 18,
+                              onPressed: () {
+                                loginController.login();
+                              }),
                         ),
                         SizedBox(
                           height: 10,

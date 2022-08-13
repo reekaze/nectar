@@ -122,6 +122,8 @@ class PhoneNumberPage extends StatelessWidget {
                                 Expanded(
                                   child: TextField(
                                     keyboardType: TextInputType.number,
+                                    controller: phoneNumberController
+                                        .numberController.value,
                                     style: TextStyle(
                                         fontWeight: FontWeight.bold,
                                         fontSize: 18),

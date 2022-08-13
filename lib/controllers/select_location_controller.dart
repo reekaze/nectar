@@ -1,7 +1,12 @@
 import 'dart:developer';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dio/dio.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:get/get.dart' hide Response;
+import 'package:nectar/controllers/phone_number_controller.dart';
+import 'package:nectar/controllers/sign_up_controller.dart';
 import 'package:nectar/models/city.dart';
 import 'package:nectar/models/country.dart';
 
@@ -11,6 +16,8 @@ class SelectLocationController extends GetxController {
   var city = <City>[].obs;
   var selectedCountryName = "".obs;
   var selectedCityName = "".obs;
+  SignUpController signUpController = Get.find();
+  PhoneNumberController phoneNumberController = Get.find();
 
   @override
   void onInit() async {
@@ -61,5 +68,44 @@ class SelectLocationController extends GetxController {
 
   changeSelectedCityName(String value) {
     selectedCityName.value = value;
+  }
+
+  signUp() async {
+    if (selectedCountryName.value == "") {
+      Get.snackbar("Selected country empty", "Please select your country");
+    } else if (selectedCityName.value == "") {
+      Get.snackbar("Selected city empty", "Please select your city");
+    } else {
+      try {
+        await FirebaseAuth.instance.createUserWithEmailAndPassword(
+            email: signUpController.emailController.value.text,
+            password: signUpController.passwordController.value.text);
+
+        //success created account;
+        var uid = FirebaseAuth.instance.currentUser!.uid;
+
+        await FirebaseFirestore.instance.collection("users").doc(uid).set({
+          "username": signUpController.usernameController.value.text,
+          "email": signUpController.emailController.value.text,
+          "phone": phoneNumberController.numberController.value.text,
+          "country": selectedCountryName.value,
+          "city": selectedCityName.value
+        });
+        ;
+        Get.offAllNamed('/home');
+      } on FirebaseAuthException catch (e) {
+        if (e.code == 'weak-password') {
+          print("The password is too weak");
+          Get.snackbar("The password is to weak", "Change password");
+        } else if (e.code == 'email-already-in-use') {
+          print("The account already exist for that email");
+          Get.snackbar("The accoung already exists for that email",
+              "Please change email");
+        }
+      } catch (e) {
+        print(e);
+        Get.snackbar(e.toString(), e.toString());
+      }
+    }
   }
 }

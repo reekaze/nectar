@@ -118,7 +118,6 @@ class SelectLocationPage extends StatelessWidget {
                                 selectLocationController
                                     .changeSelectedCountryCode(
                                         value.toString());
-                                selectLocationController.city.clear();
                                 await selectLocationController
                                     .getCities(value.toString());
                                 String countryName = selectLocationController
@@ -191,7 +190,7 @@ class SelectLocationPage extends StatelessWidget {
                               text: "Submit",
                               size: 18,
                               onPressed: () {
-                                Get.offAllNamed('/home');
+                                selectLocationController.signUp();
                               }),
                         ),
                         SizedBox(

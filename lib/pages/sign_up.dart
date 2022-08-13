@@ -95,15 +95,32 @@ class SignUpPage extends StatelessWidget {
                         ),
                         TextField(
                           controller: signUpController.emailController.value,
+                          onChanged: (value) {
+                            signUpController
+                                .checkEmailExistence(value.toString());
+                          },
                           style: TextStyle(
                               color: Colors.black,
                               fontWeight: FontWeight.bold,
                               fontSize: 15),
                           decoration: InputDecoration(
-                              suffixIcon: Icon(
-                                Icons.done,
-                                color: Color(0XFF53b175),
-                              ),
+                              suffixIcon:
+                                  (signUpController.isEmailExist.value &&
+                                          signUpController
+                                              .isEmailControllerEmpty.isFalse)
+                                      ? Icon(
+                                          Icons.dangerous,
+                                          color: Colors.red,
+                                        )
+                                      : (!signUpController.isEmailExist.value &&
+                                              signUpController
+                                                  .isEmailControllerEmpty
+                                                  .isFalse)
+                                          ? Icon(
+                                              Icons.done,
+                                              color: Color(0XFF53b175),
+                                            )
+                                          : SizedBox(),
                               enabledBorder: UnderlineInputBorder(
                                   borderSide: BorderSide(
                                       color: Color(0XFFE2E2E2), width: 1))),
@@ -176,7 +193,7 @@ class SignUpPage extends StatelessWidget {
                               text: "Sign Up",
                               size: 18,
                               onPressed: () {
-                                Get.toNamed("/phoneNumber");
+                                signUpController.signUp();
                               }),
                         ),
                         SizedBox(

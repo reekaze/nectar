@@ -27,6 +27,18 @@ class VerificationPage extends StatelessWidget {
                       image: AssetImage("assets/images/background.png"),
                       fit: BoxFit.cover)),
             ),
+            Positioned(
+              bottom: 0,
+              child: Container(
+                width: MediaQuery.of(context).size.width,
+                height: 233,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage("assets/images/background2.jpg"),
+                      fit: BoxFit.cover),
+                ),
+              ),
+            ),
             ListView(
               padding: EdgeInsets.zero,
               children: [
@@ -46,7 +58,7 @@ class VerificationPage extends StatelessWidget {
                         ),
                         SizedBox(height: 40),
                         Text(
-                          "Enter your 4-digit code",
+                          "Enter your 6-digit code",
                           style: TextStyle(
                               color: Colors.black,
                               fontSize: 24,
@@ -65,7 +77,9 @@ class VerificationPage extends StatelessWidget {
                         PinCodeTextField(
                           keyboardType: TextInputType.number,
                           appContext: context,
-                          length: 4,
+                          controller:
+                              verificationController.pinCodeController.value,
+                          length: 6,
                           pinTheme: PinTheme(
                               shape: PinCodeFieldShape.box,
                               fieldHeight: 50,
@@ -77,7 +91,11 @@ class VerificationPage extends StatelessWidget {
                               selectedFillColor: Colors.blue.withOpacity(0.5)),
                           enableActiveFill: true,
                           onCompleted: (value) {
-                            print("completed");
+                            verificationController.userInputtedOTP();
+                            verificationController
+                                .pinCodeController.value.text = "";
+                            verificationController.codeController.value.text =
+                                "";
                           },
                           onChanged: (value) {
                             verificationController
@@ -93,37 +111,30 @@ class VerificationPage extends StatelessWidget {
             Positioned(
               bottom: 0,
               child: Container(
-                width: MediaQuery.of(context).size.width,
-                height: 233,
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                      image: AssetImage("assets/images/background2.jpg"),
-                      fit: BoxFit.cover),
-                ),
-              ),
-            ),
-            Positioned(
-              bottom: 0,
-              child: Container(
                 padding: EdgeInsets.only(left: 20, right: 20, bottom: 20),
                 width: MediaQuery.of(context).size.width,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    GestureDetector(
-                        onTap: () {},
-                        child: Text("Resend Code",
-                            style: TextStyle(
-                                color: Color(0XFF53b175),
-                                fontWeight: FontWeight.bold))),
+                    Obx(
+                      () => Visibility(
+                        visible: verificationController.isResendVisible.value,
+                        child: GestureDetector(
+                            onTap: () {
+                              verificationController.resendOTP();
+                            },
+                            child: Text("Resend Code",
+                                style: TextStyle(
+                                    color: Color(0XFF53b175),
+                                    fontWeight: FontWeight.bold))),
+                      ),
+                    ),
                     ClipOval(
                       child: Material(
                         color: Color(0XFF53b175),
                         child: InkWell(
                           splashColor: Colors.white,
-                          onTap: () {
-                            Get.toNamed('/selectLocation');
-                          },
+                          onTap: () {},
                           child: SizedBox(
                             height: 67,
                             width: 67,
