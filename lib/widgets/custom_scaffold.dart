@@ -3,7 +3,12 @@ import 'package:flutter/material.dart';
 class CustomScaffold extends StatelessWidget {
   Widget body;
   Color? backgroundColor;
-  CustomScaffold({Key? key, required this.body, this.backgroundColor})
+  Widget? bottomNavigationBar;
+  CustomScaffold(
+      {Key? key,
+      required this.body,
+      this.backgroundColor,
+      this.bottomNavigationBar})
       : super(key: key);
 
   @override
@@ -11,8 +16,10 @@ class CustomScaffold extends StatelessWidget {
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus!.unfocus(),
       child: Scaffold(
+        extendBody: true,
         backgroundColor: backgroundColor ?? Colors.white,
         body: body,
+        bottomNavigationBar: bottomNavigationBar,
       ),
     );
   }
