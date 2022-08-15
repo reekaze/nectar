@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 
 class ShopPageController extends GetxController {
   var user = <String, dynamic>{}.obs;
+  var currentCarouselIndex = 0.obs;
   @override
   void onInit() async {
     // TODO: implement onInit

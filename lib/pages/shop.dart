@@ -1,10 +1,14 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nectar/controllers/shop_controller.dart';
+import 'package:nectar/widgets/custom_card.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class ShopPage extends StatelessWidget {
   ShopPage({Key? key}) : super(key: key);
   ShopPageController shopPageController = Get.put(ShopPageController());
+  CarouselController buttonCarouselController = CarouselController();
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +37,7 @@ class ShopPage extends StatelessWidget {
                           "${shopPageController.user["city"]}, ${shopPageController.user["country"]}",
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              fontSize: 18,
+                              fontSize: 16,
                               color: Color(0XFF4c4f4d)),
                         )
                 ],
@@ -45,26 +49,133 @@ class ShopPage extends StatelessWidget {
             SizedBox(
               width: MediaQuery.of(context).size.width - 40,
               child: TextField(
-                decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                        borderSide: BorderSide.none,
-                        borderRadius: BorderRadius.circular(15)),
-                    filled: true,
-                    fillColor: Color(0XFFf2f3f2),
-                    hintText: "Search Store",
-                    hintStyle: TextStyle(
-                        color: Color(0XFF7c7c7c), fontWeight: FontWeight.bold),
-                    prefixIcon: Icon(
-                      Icons.search,
-                      color: Colors.black,
-                    )),
+                  decoration: InputDecoration(
+                border: OutlineInputBorder(
+                    borderSide: BorderSide.none,
+                    borderRadius: BorderRadius.circular(15)),
+                filled: true,
+                fillColor: Color(0XFFf2f3f2),
+                hintText: "Search Store",
+                hintStyle: TextStyle(
+                    color: Color(0XFF7c7c7c), fontWeight: FontWeight.bold),
+                prefixIcon: Icon(
+                  Icons.search,
+                  color: Colors.black,
+                  size: 25,
+                ),
+                isDense: true,
+              )),
+            ),
+            SizedBox(height: 15),
+            //caraousel
+            carousel(context),
+            SizedBox(height: 20),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "Exclusive Offer",
+                    style: TextStyle(
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black),
+                  ),
+                  Text(
+                    "See all",
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                      color: Color(
+                        0XFF53B175,
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
-            SizedBox(height: 10),
-            //caraousel
+            SizedBox(height: 20),
+            SizedBox(
+              height: 250,
+              child: ListView(
+                padding: EdgeInsets.symmetric(horizontal: 20),
+                scrollDirection: Axis.horizontal,
+                children: [
+                  CustomCard(),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  CustomCard(),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  CustomCard(),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  CustomCard(),
+                ],
+              ),
+            )
           ],
         )
       ],
+    );
+  }
+
+  Widget carousel(context) {
+    return Obx(
+      () => Stack(
+        alignment: Alignment.center,
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.circular(10),
+            child: SizedBox(
+              width: MediaQuery.of(context).size.width - 40,
+              child: CarouselSlider.builder(
+                  itemCount: 3,
+                  carouselController: buttonCarouselController,
+                  itemBuilder: (context, index, realIndex) {
+                    return SizedBox(
+                      width: MediaQuery.of(context).size.width,
+                      child: Image.network(
+                        "https://ik.imagekit.io/reekaze/banner/banner${index + 1}",
+                        fit: BoxFit.cover,
+                      ),
+                    );
+                  },
+                  options: CarouselOptions(
+                    height: 115,
+                    autoPlay: true,
+                    enableInfiniteScroll: true,
+                    enlargeCenterPage: true,
+                    viewportFraction: 1,
+                    onPageChanged: (index, reason) {
+                      shopPageController.currentCarouselIndex.value = index;
+                    },
+                  )),
+            ),
+          ),
+          Positioned(
+            bottom: 10,
+            child: AnimatedSmoothIndicator(
+              activeIndex: shopPageController.currentCarouselIndex.value,
+              count: 3,
+              effect: ExpandingDotsEffect(
+                activeDotColor: Color(0XFF53b175),
+                dotColor: Color(0XFFa9a19c),
+                dotHeight: 6,
+                dotWidth: 6,
+              ),
+              onDotClicked: (index) {
+                shopPageController.currentCarouselIndex.value = index;
+                buttonCarouselController.jumpToPage(index);
+              },
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

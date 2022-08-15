@@ -47,10 +47,12 @@ class GetStartedPage extends StatelessWidget {
         ],
       ),
       decoration: BoxDecoration(
-          image: DecorationImage(
-              image: AssetImage("assets/images/get_started.png"),
-              fit: BoxFit.cover),
-          color: Colors.black),
+        image: DecorationImage(
+          image: AssetImage("assets/images/get_started.png"),
+          fit: BoxFit.cover,
+        ),
+        color: Colors.black,
+      ),
     ));
   }
 }

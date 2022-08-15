@@ -39,6 +39,8 @@ dependencies:
   flag: ^6.0.0
   pin_code_fields: ^7.4.0
   dio: ^4.0.6
+  smooth_page_indicator: ^1.0.0+2
+  carousel_slider: ^4.1.1
 
 dev_dependencies:
   # The "flutter_lints" package below contains a set of recommended lints to
