@@ -16,17 +16,16 @@ import 'package:nectar/widgets/custom_scaffold.dart';
 class HomePage extends StatelessWidget {
   HomePage({Key? key}) : super(key: key);
   HomeController homeController = Get.put(HomeController());
+  List<Widget> bottomNavigationBarItem = [
+    ShopPage(),
+    ExplorePage(),
+    CartPage(),
+    FavouritePage(),
+    AccountPage()
+  ];
 
   @override
   Widget build(BuildContext context) {
-    List<Widget> bottomNavigationBarItem = [
-      ShopPage(),
-      ExplorePage(),
-      CartPage(),
-      FavouritePage(),
-      AccountPage()
-    ];
-
     return Obx(
       () => CustomScaffold(
         body: bottomNavigationBarItem[homeController.selectedNavBar.value],

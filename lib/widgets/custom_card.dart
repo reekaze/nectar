@@ -1,7 +1,17 @@
 import 'package:flutter/material.dart';
 
 class CustomCard extends StatelessWidget {
-  const CustomCard({Key? key}) : super(key: key);
+  late String name;
+  late String image;
+  late String price;
+  late String unit;
+  CustomCard(
+      {Key? key,
+      required this.name,
+      required this.image,
+      required this.price,
+      required this.unit})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +27,7 @@ class CustomCard extends StatelessWidget {
               height: 100,
               width: 100,
               child: Image.network(
-                "https://ik.imagekit.io/reekaze/product/banana",
+                image,
                 fit: BoxFit.contain,
               ),
             ),
@@ -26,14 +36,14 @@ class CustomCard extends StatelessWidget {
             height: 20,
           ),
           Text(
-            "Organic Bananas",
+            name,
             style: TextStyle(
               color: Colors.black,
               fontWeight: FontWeight.bold,
             ),
           ),
           Text(
-            "7pcs",
+            unit,
             style: TextStyle(
               color: Color(0Xff7c7c7c),
               fontWeight: FontWeight.bold,
@@ -46,7 +56,7 @@ class CustomCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    "\$ 4.99",
+                    "\$ $price",
                     style: TextStyle(
                       color: Colors.black,
                       fontSize: 16,
