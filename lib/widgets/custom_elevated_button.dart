@@ -3,16 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
-class CUstomElevatedButton extends StatelessWidget {
+class CustomElevatedButton extends StatelessWidget {
   String text;
   double size;
   void Function() onPressed;
-  CUstomElevatedButton(
-      {Key? key,
-      required this.text,
-      required this.size,
-      required this.onPressed})
-      : super(key: key);
+  CustomElevatedButton({Key? key, required this.text, required this.size, required this.onPressed}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -25,10 +20,7 @@ class CUstomElevatedButton extends StatelessWidget {
           text,
           style: TextStyle(fontSize: size, fontWeight: FontWeight.bold),
         ),
-        style: ElevatedButton.styleFrom(
-            primary: Color(0XFF53B175),
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(19))),
+        style: ElevatedButton.styleFrom(primary: Color(0XFF53B175), shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(19))),
       ),
     );
   }

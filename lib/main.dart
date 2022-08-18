@@ -7,6 +7,7 @@ import 'package:nectar/pages/get_started.dart';
 import 'package:nectar/pages/home.dart';
 import 'package:nectar/pages/login.dart';
 import 'package:nectar/pages/phone_number.dart';
+import 'package:nectar/pages/product_detail.dart';
 import 'package:nectar/pages/select_location.dart';
 import 'package:nectar/pages/sign_up.dart';
 import 'package:nectar/pages/verification.dart';
@@ -39,6 +40,7 @@ class MyApp extends StatelessWidget {
         GetPage(name: '/verification', page: () => VerificationPage()),
         GetPage(name: '/selectLocation', page: () => SelectLocationPage()),
         GetPage(name: '/home', page: () => HomePage()),
+        GetPage(name: '/productDetail', page: () => ProductDetailPage())
       ],
     );
   }

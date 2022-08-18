@@ -22,10 +22,7 @@ class LoginPage extends StatelessWidget {
               child: Container(
                   width: MediaQuery.of(context).size.width,
                   height: 233,
-                  decoration: BoxDecoration(
-                      image: DecorationImage(
-                          image: AssetImage("assets/images/background2.jpg"),
-                          fit: BoxFit.cover))),
+                  decoration: BoxDecoration(image: DecorationImage(image: AssetImage("assets/images/background2.jpg"), fit: BoxFit.cover))),
             ),
             ListView(
               padding: EdgeInsets.zero,
@@ -33,10 +30,7 @@ class LoginPage extends StatelessWidget {
                 Container(
                   width: MediaQuery.of(context).size.width,
                   height: 233,
-                  decoration: BoxDecoration(
-                      image: DecorationImage(
-                          image: AssetImage("assets/images/background.png"),
-                          fit: BoxFit.cover)),
+                  decoration: BoxDecoration(image: DecorationImage(image: AssetImage("assets/images/background.png"), fit: BoxFit.cover)),
                   child: Image.asset("assets/images/nectar.png"),
                 ),
                 Obx(
@@ -47,85 +41,62 @@ class LoginPage extends StatelessWidget {
                       children: [
                         Text(
                           "Login",
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 29),
+                          style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 29),
                         ),
                         SizedBox(
                           height: 5,
                         ),
                         Text(
                           "Enter your emails and password",
-                          style: TextStyle(
-                              color: Color(0XFF7C7C7C),
-                              fontSize: 15,
-                              fontWeight: FontWeight.bold),
+                          style: TextStyle(color: Color(0XFF7C7C7C), fontSize: 15, fontWeight: FontWeight.bold),
                         ),
                         SizedBox(
                           height: 25,
                         ),
                         Text(
                           "Email",
-                          style: TextStyle(
-                              color: Color(0XFF7C7C7C),
-                              fontSize: 15,
-                              fontWeight: FontWeight.bold),
+                          style: TextStyle(color: Color(0XFF7C7C7C), fontSize: 15, fontWeight: FontWeight.bold),
                         ),
                         TextField(
                           controller: loginController.emailController.value,
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 15),
-                          decoration: InputDecoration(
-                              enabledBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: Color(0XFFE2E2E2), width: 1))),
+                          style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 15),
+                          decoration:
+                              InputDecoration(enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: Color(0XFFE2E2E2), width: 1))),
                         ),
                         SizedBox(
                           height: 25,
                         ),
                         Text(
                           "Password",
-                          style: TextStyle(
-                              color: Color(0XFF7C7C7C),
-                              fontSize: 15,
-                              fontWeight: FontWeight.bold),
+                          style: TextStyle(color: Color(0XFF7C7C7C), fontSize: 15, fontWeight: FontWeight.bold),
                         ),
                         TextField(
                           controller: loginController.passwordController.value,
                           obscuringCharacter: '●',
-                          obscureText:
-                              loginController.visibility.value ? false : true,
+                          obscureText: loginController.visibility.value ? false : true,
                           style: TextStyle(
                               color: Colors.black,
                               fontWeight: FontWeight.bold,
                               fontSize: 15,
-                              letterSpacing:
-                                  loginController.visibility.value ? 1 : 4),
+                              letterSpacing: loginController.visibility.value ? 1 : 4),
                           decoration: InputDecoration(
                               suffixIcon: GestureDetector(
                                 onTap: () => loginController.changeVisibility(),
                                 child: SizedBox(
                                   child: Icon(
-                                    loginController.visibility.value
-                                        ? Icons.visibility_outlined
-                                        : Icons.visibility_off_outlined,
+                                    loginController.visibility.value ? Icons.visibility_outlined : Icons.visibility_off_outlined,
                                     color: Color(0XFF7C7C7C),
                                   ),
                                 ),
                               ),
-                              enabledBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: Color(0XFFE2E2E2), width: 1))),
+                              enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: Color(0XFFE2E2E2), width: 1))),
                         ),
                         SizedBox(
                           height: 20,
                         ),
                         SizedBox(
                           width: MediaQuery.of(context).size.width,
-                          child: CUstomElevatedButton(
+                          child: CustomElevatedButton(
                               text: "Login",
                               size: 18,
                               onPressed: () {
@@ -143,10 +114,7 @@ class LoginPage extends StatelessWidget {
                                 children: [
                                   Text(
                                     "Don't have an account?",
-                                    style: TextStyle(
-                                        fontSize: 14,
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.bold),
+                                    style: TextStyle(fontSize: 14, color: Colors.black, fontWeight: FontWeight.bold),
                                   ),
                                   GestureDetector(
                                     onTap: () {
@@ -154,10 +122,7 @@ class LoginPage extends StatelessWidget {
                                     },
                                     child: Text(
                                       "Sign Up",
-                                      style: TextStyle(
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.bold,
-                                          color: Color(0XFF53B175)),
+                                      style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color(0XFF53B175)),
                                     ),
                                   )
                                 ],
@@ -168,16 +133,8 @@ class LoginPage extends StatelessWidget {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text("Forgot",
-                                      style: TextStyle(
-                                          fontSize: 14,
-                                          color: Colors.black,
-                                          fontWeight: FontWeight.bold)),
-                                  Text("Password?",
-                                      style: TextStyle(
-                                          fontSize: 14,
-                                          color: Colors.black,
-                                          fontWeight: FontWeight.bold)),
+                                  Text("Forgot", style: TextStyle(fontSize: 14, color: Colors.black, fontWeight: FontWeight.bold)),
+                                  Text("Password?", style: TextStyle(fontSize: 14, color: Colors.black, fontWeight: FontWeight.bold)),
                                 ],
                               ),
                             )
@@ -189,10 +146,7 @@ class LoginPage extends StatelessWidget {
                         Center(
                             child: Text(
                           "Or login with :",
-                          style: TextStyle(
-                              fontSize: 14,
-                              color: Color(0XFF828282),
-                              fontWeight: FontWeight.bold),
+                          style: TextStyle(fontSize: 14, color: Color(0XFF828282), fontWeight: FontWeight.bold),
                         )),
                         Row(
                           children: [
@@ -201,8 +155,7 @@ class LoginPage extends StatelessWidget {
                                 onPressed: () {},
                                 child: Container(
                                   child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
+                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                     children: [
                                       SizedBox(
                                         width: 20,
@@ -219,10 +172,7 @@ class LoginPage extends StatelessWidget {
                                   ),
                                 ),
                                 style: ElevatedButton.styleFrom(
-                                    primary: Colors.white,
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(19))),
+                                    primary: Colors.white, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(19))),
                               ),
                             ),
                             SizedBox(
@@ -233,8 +183,7 @@ class LoginPage extends StatelessWidget {
                                 onPressed: () {},
                                 child: Container(
                                   child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
+                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                     children: [
                                       SizedBox(
                                         width: 20,
@@ -251,10 +200,7 @@ class LoginPage extends StatelessWidget {
                                   ),
                                 ),
                                 style: ElevatedButton.styleFrom(
-                                    primary: Color(0XFF3a5897),
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(19))),
+                                    primary: Color(0XFF3a5897), shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(19))),
                               ),
                             ),
                           ],

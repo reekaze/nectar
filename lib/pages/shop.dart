@@ -7,7 +7,7 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class ShopPage extends StatelessWidget {
   ShopPage({Key? key}) : super(key: key);
-  ShopPageController shopPageController = Get.put(ShopPageController());
+  ShopController shopPageController = Get.put(ShopController());
   CarouselController buttonCarouselController = CarouselController();
 
   @override
@@ -121,6 +121,7 @@ class ShopPage extends StatelessWidget {
                                       name: data["name"],
                                       price: data["price"],
                                       unit: data["unit"],
+                                      productId: data["productId"],
                                     ),
                                   );
                                 }).toList()
@@ -181,6 +182,7 @@ class ShopPage extends StatelessWidget {
                                       name: data["name"],
                                       price: data["price"],
                                       unit: data["unit"],
+                                      productId: data["productId"],
                                     ),
                                   );
                                 }).toList()
@@ -241,6 +243,7 @@ class ShopPage extends StatelessWidget {
                                       name: data["name"],
                                       price: data["price"],
                                       unit: data["unit"],
+                                      productId: data["productId"],
                                     ),
                                   );
                                 }).toList()

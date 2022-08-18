@@ -9,8 +9,7 @@ import 'package:nectar/widgets/custom_scaffold.dart';
 
 class SelectLocationPage extends StatelessWidget {
   SelectLocationPage({Key? key}) : super(key: key);
-  SelectLocationController selectLocationController =
-      Get.put(SelectLocationController());
+  SelectLocationController selectLocationController = Get.put(SelectLocationController());
 
   @override
   Widget build(BuildContext context) {
@@ -23,18 +22,12 @@ class SelectLocationPage extends StatelessWidget {
               child: Container(
                   width: MediaQuery.of(context).size.width,
                   height: 233,
-                  decoration: BoxDecoration(
-                      image: DecorationImage(
-                          image: AssetImage("assets/images/background2.jpg"),
-                          fit: BoxFit.cover))),
+                  decoration: BoxDecoration(image: DecorationImage(image: AssetImage("assets/images/background2.jpg"), fit: BoxFit.cover))),
             ),
             Container(
               width: MediaQuery.of(context).size.width,
               height: 233,
-              decoration: BoxDecoration(
-                  image: DecorationImage(
-                      image: AssetImage("assets/images/background.png"),
-                      fit: BoxFit.cover)),
+              decoration: BoxDecoration(image: DecorationImage(image: AssetImage("assets/images/background.png"), fit: BoxFit.cover)),
             ),
             SafeArea(
               child: ListView(
@@ -66,10 +59,7 @@ class SelectLocationPage extends StatelessWidget {
                         Center(
                           child: Text(
                             "Select Your Location",
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 24),
+                            style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 24),
                           ),
                         ),
                         SizedBox(
@@ -78,57 +68,36 @@ class SelectLocationPage extends StatelessWidget {
                         Text(
                           "Switch on your location to stay in tune with what's happening in your area",
                           textAlign: TextAlign.center,
-                          style: TextStyle(
-                              color: Color(0XFF7C7C7C),
-                              fontSize: 14,
-                              fontWeight: FontWeight.bold),
+                          style: TextStyle(color: Color(0XFF7C7C7C), fontSize: 14, fontWeight: FontWeight.bold),
                         ),
                         SizedBox(
                           height: 80,
                         ),
                         Text(
                           "Your Country",
-                          style: TextStyle(
-                              color: Color(0XFF7C7C7C),
-                              fontSize: 15,
-                              fontWeight: FontWeight.bold),
+                          style: TextStyle(color: Color(0XFF7C7C7C), fontSize: 15, fontWeight: FontWeight.bold),
                         ),
                         Obx(
                           () => Container(
-                            decoration: BoxDecoration(
-                                border: Border(
-                                    bottom:
-                                        BorderSide(color: Color(0XFFE2E2E2)))),
+                            decoration: BoxDecoration(border: Border(bottom: BorderSide(color: Color(0XFFE2E2E2)))),
                             child: DropdownButtonFormField(
                               icon: Icon(Icons.keyboard_arrow_down),
-                              decoration:
-                                  InputDecoration(border: InputBorder.none),
+                              decoration: InputDecoration(border: InputBorder.none),
                               hint: Text("Select your country"),
-                              items: selectLocationController.country
-                                  .map((country) {
+                              items: selectLocationController.country.map((country) {
                                 return DropdownMenuItem(
                                     value: country.code,
                                     child: Text(
                                       country.name,
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold),
+                                      style: TextStyle(fontWeight: FontWeight.bold),
                                     ));
                               }).toList(),
                               onChanged: (value) async {
-                                selectLocationController
-                                    .changeSelectedCountryCode(
-                                        value.toString());
-                                await selectLocationController
-                                    .getCities(value.toString());
-                                String countryName = selectLocationController
-                                    .country
-                                    .firstWhere((country) =>
-                                        country.code == value.toString())
-                                    .name;
-                                selectLocationController
-                                    .changeSelectedCountryName(countryName);
-                                print(selectLocationController
-                                    .selectedCountryName);
+                                selectLocationController.changeSelectedCountryCode(value.toString());
+                                await selectLocationController.getCities(value.toString());
+                                String countryName = selectLocationController.country.firstWhere((country) => country.code == value.toString()).name;
+                                selectLocationController.changeSelectedCountryName(countryName);
+                                print(selectLocationController.selectedCountryName);
                               },
                             ),
                           ),
@@ -138,28 +107,16 @@ class SelectLocationPage extends StatelessWidget {
                         ),
                         Text(
                           "Your City",
-                          style: TextStyle(
-                              color: Color(0XFF7C7C7C),
-                              fontSize: 15,
-                              fontWeight: FontWeight.bold),
+                          style: TextStyle(color: Color(0XFF7C7C7C), fontSize: 15, fontWeight: FontWeight.bold),
                         ),
                         Obx(
                           () => Container(
-                            decoration: BoxDecoration(
-                                border: Border(
-                                    bottom:
-                                        BorderSide(color: Color(0XFFE2E2E2)))),
+                            decoration: BoxDecoration(border: Border(bottom: BorderSide(color: Color(0XFFE2E2E2)))),
                             child: DropdownButtonFormField(
                               icon: Icon(Icons.keyboard_arrow_down),
-                              decoration:
-                                  InputDecoration(border: InputBorder.none),
-                              value: selectLocationController.city.isEmpty
-                                  ? ""
-                                  : selectLocationController.city[0].id,
-                              hint: selectLocationController
-                                      .selectedCountryName.isEmpty
-                                  ? Text("Select your country first")
-                                  : Text("wait"),
+                              decoration: InputDecoration(border: InputBorder.none),
+                              value: selectLocationController.city.isEmpty ? "" : selectLocationController.city[0].id,
+                              hint: selectLocationController.selectedCountryName.isEmpty ? Text("Select your country first") : Text("wait"),
                               items: selectLocationController.city.map((city) {
                                 return DropdownMenuItem(
                                     value: city.id,
@@ -169,14 +126,9 @@ class SelectLocationPage extends StatelessWidget {
                                         )));
                               }).toList(),
                               onChanged: (value) {
-                                String cityName = selectLocationController.city
-                                    .firstWhere(
-                                        (city) => city.id == value.toString())
-                                    .name;
-                                selectLocationController
-                                    .changeSelectedCityName(cityName);
-                                print(
-                                    selectLocationController.selectedCityName);
+                                String cityName = selectLocationController.city.firstWhere((city) => city.id == value.toString()).name;
+                                selectLocationController.changeSelectedCityName(cityName);
+                                print(selectLocationController.selectedCityName);
                               },
                             ),
                           ),
@@ -186,7 +138,7 @@ class SelectLocationPage extends StatelessWidget {
                         ),
                         SizedBox(
                           width: MediaQuery.of(context).size.width,
-                          child: CUstomElevatedButton(
+                          child: CustomElevatedButton(
                               text: "Submit",
                               size: 18,
                               onPressed: () {

@@ -22,10 +22,7 @@ class SignUpPage extends StatelessWidget {
               child: Container(
                   width: MediaQuery.of(context).size.width,
                   height: 233,
-                  decoration: BoxDecoration(
-                      image: DecorationImage(
-                          image: AssetImage("assets/images/background2.jpg"),
-                          fit: BoxFit.cover))),
+                  decoration: BoxDecoration(image: DecorationImage(image: AssetImage("assets/images/background2.jpg"), fit: BoxFit.cover))),
             ),
             ListView(
               padding: EdgeInsets.zero,
@@ -33,10 +30,7 @@ class SignUpPage extends StatelessWidget {
                 Container(
                   width: MediaQuery.of(context).size.width,
                   height: 233,
-                  decoration: BoxDecoration(
-                      image: DecorationImage(
-                          image: AssetImage("assets/images/background.png"),
-                          fit: BoxFit.cover)),
+                  decoration: BoxDecoration(image: DecorationImage(image: AssetImage("assets/images/background.png"), fit: BoxFit.cover)),
                   child: Image.asset("assets/images/nectar.png"),
                 ),
                 Obx(
@@ -47,149 +41,100 @@ class SignUpPage extends StatelessWidget {
                       children: [
                         Text(
                           "Sign Up",
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 29),
+                          style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 29),
                         ),
                         SizedBox(
                           height: 5,
                         ),
                         Text(
                           "Enter your credentials to continue",
-                          style: TextStyle(
-                              color: Color(0XFF7C7C7C),
-                              fontSize: 15,
-                              fontWeight: FontWeight.bold),
+                          style: TextStyle(color: Color(0XFF7C7C7C), fontSize: 15, fontWeight: FontWeight.bold),
                         ),
                         SizedBox(
                           height: 25,
                         ),
                         Text(
                           "Username",
-                          style: TextStyle(
-                              color: Color(0XFF7C7C7C),
-                              fontSize: 15,
-                              fontWeight: FontWeight.bold),
+                          style: TextStyle(color: Color(0XFF7C7C7C), fontSize: 15, fontWeight: FontWeight.bold),
                         ),
                         TextField(
                           controller: signUpController.usernameController.value,
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 15),
-                          decoration: InputDecoration(
-                              enabledBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: Color(0XFFE2E2E2), width: 1))),
+                          style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 15),
+                          decoration:
+                              InputDecoration(enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: Color(0XFFE2E2E2), width: 1))),
                         ),
                         SizedBox(
                           height: 25,
                         ),
                         Text(
                           "Email",
-                          style: TextStyle(
-                              color: Color(0XFF7C7C7C),
-                              fontSize: 15,
-                              fontWeight: FontWeight.bold),
+                          style: TextStyle(color: Color(0XFF7C7C7C), fontSize: 15, fontWeight: FontWeight.bold),
                         ),
                         TextField(
                           controller: signUpController.emailController.value,
                           onChanged: (value) {
-                            signUpController
-                                .checkEmailExistence(value.toString());
+                            signUpController.checkEmailExistence(value.toString());
                           },
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 15),
+                          style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 15),
                           decoration: InputDecoration(
-                              suffixIcon:
-                                  (signUpController.isEmailExist.value &&
-                                          signUpController
-                                              .isEmailControllerEmpty.isFalse)
+                              suffixIcon: (signUpController.isEmailExist.value && signUpController.isEmailControllerEmpty.isFalse)
+                                  ? Icon(
+                                      Icons.dangerous,
+                                      color: Colors.red,
+                                    )
+                                  : (!signUpController.isEmailExist.value && signUpController.isEmailControllerEmpty.isFalse)
                                       ? Icon(
-                                          Icons.dangerous,
-                                          color: Colors.red,
+                                          Icons.done,
+                                          color: Color(0XFF53b175),
                                         )
-                                      : (!signUpController.isEmailExist.value &&
-                                              signUpController
-                                                  .isEmailControllerEmpty
-                                                  .isFalse)
-                                          ? Icon(
-                                              Icons.done,
-                                              color: Color(0XFF53b175),
-                                            )
-                                          : SizedBox(),
-                              enabledBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: Color(0XFFE2E2E2), width: 1))),
+                                      : SizedBox(),
+                              enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: Color(0XFFE2E2E2), width: 1))),
                         ),
                         SizedBox(
                           height: 25,
                         ),
                         Text(
                           "Password",
-                          style: TextStyle(
-                              color: Color(0XFF7C7C7C),
-                              fontSize: 15,
-                              fontWeight: FontWeight.bold),
+                          style: TextStyle(color: Color(0XFF7C7C7C), fontSize: 15, fontWeight: FontWeight.bold),
                         ),
                         TextField(
                           controller: signUpController.passwordController.value,
                           obscuringCharacter: '●',
-                          obscureText:
-                              signUpController.visibility.value ? false : true,
+                          obscureText: signUpController.visibility.value ? false : true,
                           style: TextStyle(
                               color: Colors.black,
                               fontWeight: FontWeight.bold,
                               fontSize: 15,
-                              letterSpacing:
-                                  signUpController.visibility.value ? 1 : 4),
+                              letterSpacing: signUpController.visibility.value ? 1 : 4),
                           decoration: InputDecoration(
                               suffixIcon: GestureDetector(
-                                onTap: () =>
-                                    signUpController.changeVisibility(),
+                                onTap: () => signUpController.changeVisibility(),
                                 child: SizedBox(
                                   child: Icon(
-                                    signUpController.visibility.value
-                                        ? Icons.visibility_outlined
-                                        : Icons.visibility_off_outlined,
+                                    signUpController.visibility.value ? Icons.visibility_outlined : Icons.visibility_off_outlined,
                                     color: Color(0XFF7C7C7C),
                                   ),
                                 ),
                               ),
-                              enabledBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: Color(0XFFE2E2E2), width: 1))),
+                              enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: Color(0XFFE2E2E2), width: 1))),
                         ),
                         SizedBox(
                           height: 20,
                         ),
                         RichText(
-                          text: TextSpan(
-                              style: TextStyle(
-                                  fontSize: 14,
-                                  color: Color(0XFF7C7C7C),
-                                  fontWeight: FontWeight.bold),
-                              children: [
-                                TextSpan(
-                                    text: "By continuing you agree to our"),
-                                TextSpan(
-                                    text: " Terms of Service",
-                                    style: TextStyle(color: Color(0XFF53B175))),
-                                TextSpan(text: " and"),
-                                TextSpan(
-                                    text: " Privacy Policy",
-                                    style: TextStyle(color: Color(0XFF53B175))),
-                              ]),
+                          text: TextSpan(style: TextStyle(fontSize: 14, color: Color(0XFF7C7C7C), fontWeight: FontWeight.bold), children: [
+                            TextSpan(text: "By continuing you agree to our"),
+                            TextSpan(text: " Terms of Service", style: TextStyle(color: Color(0XFF53B175))),
+                            TextSpan(text: " and"),
+                            TextSpan(text: " Privacy Policy", style: TextStyle(color: Color(0XFF53B175))),
+                          ]),
                         ),
                         SizedBox(
                           height: 20,
                         ),
                         SizedBox(
                           width: MediaQuery.of(context).size.width,
-                          child: CUstomElevatedButton(
+                          child: CustomElevatedButton(
                               text: "Sign Up",
                               size: 18,
                               onPressed: () {
@@ -204,10 +149,7 @@ class SignUpPage extends StatelessWidget {
                           children: [
                             Text(
                               "Already have an account?",
-                              style: TextStyle(
-                                  fontSize: 14,
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold),
+                              style: TextStyle(fontSize: 14, color: Colors.black, fontWeight: FontWeight.bold),
                             ),
                             GestureDetector(
                               onTap: () {
@@ -215,10 +157,7 @@ class SignUpPage extends StatelessWidget {
                               },
                               child: Text(
                                 "Login",
-                                style: TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.bold,
-                                    color: Color(0XFF53B175)),
+                                style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color(0XFF53B175)),
                               ),
                             )
                           ],

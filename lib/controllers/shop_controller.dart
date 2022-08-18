@@ -4,7 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 
-class ShopPageController extends GetxController {
+class ShopController extends GetxController {
   var user = <String, dynamic>{}.obs;
   var exclusiveOffer = [<String, dynamic>{}].obs;
   var bestSelling = [<String, dynamic>{}].obs;
@@ -37,8 +37,11 @@ class ShopPageController extends GetxController {
         .collection("products")
         .where("tag", isEqualTo: "exclussive offer")
         .get();
-    exclusiveOffer.value = data.docs.map((data) => data.data()).toList()
-        as List<Map<String, dynamic>>;
+    exclusiveOffer.value = data.docs.map((data) {
+      var temp = data.data();
+      temp.addAll({'productId': data.id});
+      return temp;
+    }).toList() as List<Map<String, dynamic>>;
     isExclusifeOfferLoading.value = false;
   }
 
@@ -47,8 +50,11 @@ class ShopPageController extends GetxController {
         .collection("products")
         .where("tag", isEqualTo: "best selling")
         .get();
-    bestSelling.value = data.docs.map((data) => data.data()).toList()
-        as List<Map<String, dynamic>>;
+    bestSelling.value = data.docs.map((data) {
+      var temp = data.data();
+      temp.addAll({'productId': data.id});
+      return temp;
+    }).toList() as List<Map<String, dynamic>>;
     isBestSellingLoading.value = false;
   }
 
@@ -57,8 +63,11 @@ class ShopPageController extends GetxController {
         .collection("products")
         .where("tag", isEqualTo: "groceries")
         .get();
-    groceries.value = data.docs.map((data) => data.data()).toList()
-        as List<Map<String, dynamic>>;
+    groceries.value = data.docs.map((data) {
+      var temp = data.data();
+      temp.addAll({'productId': data.id});
+      return temp;
+    }).toList() as List<Map<String, dynamic>>;
     isGroceriesLoading.value = false;
   }
 }

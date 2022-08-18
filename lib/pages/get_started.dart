@@ -22,23 +22,20 @@ class GetStartedPage extends StatelessWidget {
           SvgPicture.asset("assets/images/nectar_icon.svg"),
           Text(
             "Welcome",
-            style: TextStyle(
-                color: Colors.white, fontSize: 43, fontWeight: FontWeight.bold),
+            style: TextStyle(color: Colors.white, fontSize: 43, fontWeight: FontWeight.bold),
           ),
           Text(
             "to our store",
-            style: TextStyle(
-                color: Colors.white, fontSize: 43, fontWeight: FontWeight.bold),
+            style: TextStyle(color: Colors.white, fontSize: 43, fontWeight: FontWeight.bold),
           ),
           Text(
             "Get your groceries in as fast as one hour",
-            style: TextStyle(
-                fontSize: 15, color: Color(0xFFFCFCFC).withOpacity(0.7)),
+            style: TextStyle(fontSize: 15, color: Color(0xFFFCFCFC).withOpacity(0.7)),
           ),
           SizedBox(
             height: 30,
           ),
-          CUstomElevatedButton(
+          CustomElevatedButton(
               text: "Get Started",
               size: 18,
               onPressed: () {
