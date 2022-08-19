@@ -76,42 +76,47 @@ class CustomCard extends StatelessWidget {
                     ),
                     GestureDetector(
                       onTap: () async {
+                        //add to cart
+                        var uid = FirebaseAuth.instance.currentUser!.uid;
+                        var data = await FirebaseFirestore.instance.collection("carts").doc(uid).get();
+                        Map<String, dynamic> temp1;
+                        List<Map<String, dynamic>> temp = [];
+                        bool isFirstTimeAdd = true;
+
+                        if (data.data()?["products"] != null) {
+                          for (var i = 0; i < data.data()?["products"].length; i++) {
+                            if (productId == data.data()!["products"][i]["productId"]) {
+                              temp1 = data.data()!["products"][i];
+                              temp1["total"] = temp1["total"] + 1;
+                              temp.add(temp1);
+                              isFirstTimeAdd = false;
+                            } else {
+                              temp.add(data.data()!["products"][i]);
+                            }
+                          }
+                        }
+
+                        if (isFirstTimeAdd) {
+                          temp.add({
+                            "productId": productId,
+                            "total": 1,
+                          });
+                        }
+
+                        await FirebaseFirestore.instance.collection("carts").doc(uid).set({
+                          "products": [...temp]
+                        });
+
                         //snackbar
+
+                        if (Get.isSnackbarOpen) {
+                          Get.closeCurrentSnackbar();
+                        }
                         Get.snackbar(
                           "Success",
                           "Add 1 ${name} to cart",
                           backgroundColor: Color(0XFF53B175).withOpacity(0.8),
                         );
-                        //add to cart
-                        var uid = await FirebaseAuth.instance.currentUser!.uid;
-                        var data = await FirebaseFirestore.instance.collection("carts").doc(uid).get();
-                        var total;
-                        List<Map<String, dynamic>> temp = [];
-                        inspect(data.data());
-
-                        if (data.data()?["products"] != null) {
-                          for (var i = 0; i < data.data()!["products"].length; i++) {
-                            if (productId == data.data()!["products"][i]["productId"]) {
-                              total = data.data()!["products"][i]["total"];
-                            } else {
-                              // inspect(data.data()!["products"][i]);
-                              temp.add(data.data()!["products"][i]);
-                            }
-                          }
-                        }
-                        if (total == null) {
-                          total = 0;
-                        }
-
-                        FirebaseFirestore.instance.collection("carts").doc(uid).set({
-                          "products": [...temp] +
-                              [
-                                {
-                                  "productId": productId,
-                                  "total": total + 1,
-                                }
-                              ]
-                        });
                       },
                       child: Container(
                         width: 45,

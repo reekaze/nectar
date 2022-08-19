@@ -310,15 +310,20 @@ class ProductDetailPage extends StatelessWidget {
                 child: CustomElevatedButton(
                   text: "Add To Cart",
                   size: 18,
-                  onPressed: () {
+                  onPressed: () async {
+                    //back end add to cart
+                    await productDetailController.addToCart();
+
                     //snackbar and reset counter value
+                    if (Get.isSnackbarOpen) {
+                      Get.closeCurrentSnackbar();
+                    }
                     Get.snackbar(
                       "Success",
                       "Add ${productDetailController.counter.value} ${productDetailController.product.value.name} to cart",
                       backgroundColor: Color(0XFF53B175).withOpacity(0.8),
                     );
                     productDetailController.counter.value = 1;
-                    //back end add to cart
                   },
                 ),
               ),
