@@ -7,10 +7,12 @@ class CartController extends GetxController {
   var productInfoData = <dynamic>[].obs;
   var isLoading = true.obs;
   var uid = FirebaseAuth.instance.currentUser!.uid;
+  var totalPrice = 0.0.obs;
 
   getData() async {
     isLoading.value = true;
     // carts data
+    totalPrice.value = 0;
     cartsData.value = [];
     productInfoData.value = [];
     var resp = await FirebaseFirestore.instance.collection("carts").doc(uid).get();
@@ -28,6 +30,7 @@ class CartController extends GetxController {
             (doc) {
               if (doc.id == listProductId[i]) {
                 productInfoData.add(doc.data());
+                totalPrice.value += cartsData[i]["total"] * double.parse(productInfoData[i]["price"]);
               }
               return true;
             },
@@ -42,9 +45,11 @@ class CartController extends GetxController {
   removeItem(int index, int total, String from) async {
     //update ui
     if (total > 1 && from == "remove") {
+      totalPrice.value -= double.parse(productInfoData[index]["price"]);
       cartsData[index]["total"] -= 1;
       cartsData.refresh();
     } else {
+      totalPrice.value -= double.parse(productInfoData[index]["price"]) * cartsData[index]["total"];
       cartsData.removeAt(index);
       productInfoData.removeAt(index);
     }
@@ -59,6 +64,7 @@ class CartController extends GetxController {
   }
 
   addItem(int index, int total) async {
+    totalPrice.value += double.parse(productInfoData[index]["price"]);
     cartsData[index]["total"] += 1;
     cartsData.refresh();
     await FirebaseFirestore.instance.collection("carts").doc(uid).set({

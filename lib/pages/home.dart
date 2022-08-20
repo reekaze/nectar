@@ -6,6 +6,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:nectar/controllers/cart_controller.dart';
+import 'package:nectar/controllers/favourite_controller.dart';
 import 'package:nectar/controllers/home_controller.dart';
 import 'package:nectar/pages/Explore.dart';
 import 'package:nectar/pages/account.dart';
@@ -18,6 +19,7 @@ class HomePage extends StatelessWidget {
   HomePage({Key? key}) : super(key: key);
   HomeController homeController = Get.put(HomeController());
   CartController cartController = Get.put(CartController());
+  FavouriteController favouriteController = Get.put(FavouriteController());
   List<Widget> pages = [
     ShopPage(),
     ExplorePage(),
@@ -95,6 +97,8 @@ class HomePage extends StatelessWidget {
                 homeController.selectedNavBar.value = value;
                 if (value == 2) {
                   cartController.getData();
+                } else if (value == 3) {
+                  favouriteController.getData();
                 }
               },
             ),

@@ -76,7 +76,15 @@ class ProductDetailPage extends StatelessWidget {
                                         fontSize: 22,
                                       ),
                                     ),
-                                    Icon(Icons.favorite_outline),
+                                    GestureDetector(
+                                      onTap: () {
+                                        productDetailController.changeFavourite();
+                                      },
+                                      child: Icon(
+                                        productDetailController.favourite.value ? Icons.favorite : Icons.favorite_outline,
+                                        color: productDetailController.favourite.value ? Colors.redAccent : Colors.black,
+                                      ),
+                                    ),
                                   ],
                                 ),
                                 Align(

@@ -9,11 +9,16 @@ class ProductDetailController extends GetxController {
   var isLoading = true.obs;
   var counter = 1.obs;
   var isProductDetailHide = false.obs;
+  var uid = FirebaseAuth.instance.currentUser!.uid;
+  var favourite = false.obs;
+  var listFavourite = <dynamic>[].obs;
+
   @override
   void onInit() async {
     // TODO: implement onInit
     super.onInit();
     getProduct();
+    getFavourite();
   }
 
   ProductDetailController({required this.productId});
@@ -39,7 +44,6 @@ class ProductDetailController extends GetxController {
   addToCart() async {
     bool isFirstTimeAdd = true;
 
-    var uid = FirebaseAuth.instance.currentUser!.uid;
     var resp = await FirebaseFirestore.instance.collection("carts").doc(uid).get();
     List<dynamic> data = [];
     if (resp.data()?["products"] != null) {
@@ -62,5 +66,34 @@ class ProductDetailController extends GetxController {
         "products": [...data]
       },
     );
+  }
+
+  getFavourite() async {
+    var resp = await FirebaseFirestore.instance.collection("favourite").doc(uid).get();
+    ;
+    if (resp.data()?["products"] != null) {
+      listFavourite.value = resp.data()!["products"];
+      for (var i = 0; i < listFavourite.length; i++) {
+        if (listFavourite[i] == productId) {
+          favourite.value = true;
+          break;
+        }
+      }
+    }
+  }
+
+  changeFavourite() async {
+    favourite.value = !favourite.value;
+    if (favourite.value) {
+      listFavourite.add(productId);
+      await FirebaseFirestore.instance.collection("favourite").doc(uid).set({"products": listFavourite});
+    } else {
+      listFavourite.remove(productId);
+      if (listFavourite.isNotEmpty) {
+        await FirebaseFirestore.instance.collection("favourite").doc(uid).set({"products": listFavourite});
+      } else {
+        await FirebaseFirestore.instance.collection("favourite").doc(uid).delete();
+      }
+    }
   }
 }
