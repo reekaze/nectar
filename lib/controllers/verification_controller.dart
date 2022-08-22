@@ -7,19 +7,23 @@ import 'package:get/get.dart';
 import 'package:nectar/controllers/phone_number_controller.dart';
 
 class VerificationController extends GetxController {
+  var codeController = TextEditingController().obs;
+  var verificationId = "".obs;
+  int? resendToken;
+  var pinCodeController = TextEditingController().obs;
+  var isResendVisible = false.obs;
+  var killTimeOut = false.obs;
   @override
   void onInit() async {
     // TODO: implement onInit
     super.onInit();
 
     await FirebaseAuth.instance.verifyPhoneNumber(
-        phoneNumber:
-            "+${phoneNumberController.selectedCountry.value}${phoneNumberController.numberController.value.text}",
+        phoneNumber: "+${phoneNumberController.selectedCountry.value}${phoneNumberController.numberController.value.text}",
         verificationCompleted: _verificationCompleted,
         verificationFailed: _verificationFailed,
         codeSent: _codeSent,
-        codeAutoRetrievalTimeout: (verificationId) =>
-            _codeAutoRetrievalTimeout(verificationId, "init"),
+        codeAutoRetrievalTimeout: (verificationId) => _codeAutoRetrievalTimeout(verificationId, "init"),
         timeout: const Duration(seconds: 60));
   }
 
@@ -28,13 +32,11 @@ class VerificationController extends GetxController {
   resendOTP() async {
     isResendVisible.value = false;
     await FirebaseAuth.instance.verifyPhoneNumber(
-      phoneNumber:
-          "+${phoneNumberController.selectedCountry.value}${phoneNumberController.numberController.value.text}",
+      phoneNumber: "+${phoneNumberController.selectedCountry.value}${phoneNumberController.numberController.value.text}",
       verificationCompleted: _verificationCompleted,
       verificationFailed: _verificationFailed,
       codeSent: _codeSent,
-      codeAutoRetrievalTimeout: (verificationId) =>
-          _codeAutoRetrievalTimeout(verificationId, "from resend otp"),
+      codeAutoRetrievalTimeout: (verificationId) => _codeAutoRetrievalTimeout(verificationId, "from resend otp"),
       timeout: const Duration(seconds: 60),
       forceResendingToken: resendToken,
     );
@@ -43,7 +45,7 @@ class VerificationController extends GetxController {
   _verificationCompleted(PhoneAuthCredential phoneAuthCredential) async {}
   _verificationFailed(FirebaseAuthException e) {
     if (e.code == 'invalid-phone-number') {
-      print('the provided phone number is invalidsssss');
+      print('the provided phone number is invalids');
 
       Get.back();
       Get.snackbar("invalid number", "change phone number");
@@ -52,6 +54,7 @@ class VerificationController extends GetxController {
 
   _codeSent(String verificationId, int? resendToken) async {
     this.verificationId.value = verificationId;
+    inspect(verificationId);
     this.resendToken = resendToken;
   }
 
@@ -63,9 +66,7 @@ class VerificationController extends GetxController {
   }
 
   userInputtedOTP() async {
-    PhoneAuthCredential credential = PhoneAuthProvider.credential(
-        verificationId: verificationId.value,
-        smsCode: codeController.value.text);
+    PhoneAuthCredential credential = PhoneAuthProvider.credential(verificationId: verificationId.value, smsCode: codeController.value.text);
 
     var x;
     try {
@@ -82,13 +83,6 @@ class VerificationController extends GetxController {
       Get.snackbar("failed", "wrong code input");
     }
   }
-
-  var codeController = TextEditingController().obs;
-  var verificationId = "".obs;
-  int? resendToken;
-  var pinCodeController = TextEditingController().obs;
-  var isResendVisible = false.obs;
-  var killTimeOut = false.obs;
 
   changeCodeControllerValue(String value) {
     codeController.value.text = value;

@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:nectar/controllers/product_detail_controller.dart';
@@ -50,10 +51,13 @@ class ProductDetailPage extends StatelessWidget {
                           ClipRRect(
                             borderRadius: BorderRadius.circular(25),
                             child: Container(
-                              child: Image.network(
-                                productDetailController.product.value.image as String,
+                              child: CachedNetworkImage(
+                                imageUrl: productDetailController.product.value.image as String,
                                 width: MediaQuery.of(context).size.width,
                                 height: 300,
+                                placeholder: (context, url) => Center(
+                                  child: CircularProgressIndicator(),
+                                ),
                               ),
                               decoration: BoxDecoration(color: Color(0XFFF2F3F2)),
                             ),
@@ -68,13 +72,25 @@ class ProductDetailPage extends StatelessWidget {
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Text(
-                                      productDetailController.product.value.name as String,
-                                      style: TextStyle(
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 22,
+                                    Expanded(
+                                      child: Align(
+                                        alignment: Alignment.centerLeft,
+                                        child: Column(
+                                          children: [
+                                            Text(
+                                              productDetailController.product.value.name as String,
+                                              style: TextStyle(
+                                                color: Colors.black,
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 22,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
                                       ),
+                                    ),
+                                    SizedBox(
+                                      width: 20,
                                     ),
                                     GestureDetector(
                                       onTap: () {

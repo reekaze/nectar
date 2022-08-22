@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:nectar/pages/get_started.dart';
 import 'package:nectar/pages/home.dart';
 import 'package:nectar/pages/login.dart';
+import 'package:nectar/pages/order_accepted.dart';
 import 'package:nectar/pages/phone_number.dart';
 import 'package:nectar/pages/product_detail.dart';
 import 'package:nectar/pages/select_location.dart';
@@ -30,7 +31,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: "Nectar",
-      theme: ThemeData(fontFamily: "Poppins"),
+      theme: ThemeData(fontFamily: "Poppins", accentColor: Color(0XFF53B175)),
       initialRoute: 'getStarted',
       getPages: [
         GetPage(name: '/getStarted', page: () => GetStartedPage()),
@@ -40,7 +41,8 @@ class MyApp extends StatelessWidget {
         GetPage(name: '/verification', page: () => VerificationPage()),
         GetPage(name: '/selectLocation', page: () => SelectLocationPage()),
         GetPage(name: '/home', page: () => HomePage()),
-        GetPage(name: '/productDetail', page: () => ProductDetailPage())
+        GetPage(name: '/productDetail', page: () => ProductDetailPage()),
+        GetPage(name: '/orderAccepted', page: () => OrderAcceptedPage()),
       ],
     );
   }

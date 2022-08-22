@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -35,19 +36,20 @@ class CustomCard extends StatelessWidget {
           children: [
             Center(
               child: SizedBox(
-                height: 100,
-                width: 100,
-                child: Image.network(
-                  image,
-                  fit: BoxFit.contain,
-                ),
-              ),
+                  height: 100,
+                  width: 100,
+                  child: CachedNetworkImage(
+                    imageUrl: image,
+                    fit: BoxFit.contain,
+                    placeholder: (context, url) => Center(child: CircularProgressIndicator()),
+                  )),
             ),
             SizedBox(
               height: 20,
             ),
             Text(
               name,
+              overflow: TextOverflow.ellipsis,
               style: TextStyle(
                 color: Colors.black,
                 fontWeight: FontWeight.bold,

@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -17,7 +18,7 @@ class FavouritePage extends StatelessWidget {
             ListView(
               children: [
                 SizedBox(
-                  height: 20,
+                  height: 10,
                 ),
                 Center(
                     child: Text(
@@ -25,7 +26,7 @@ class FavouritePage extends StatelessWidget {
                   style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 18),
                 )),
                 SizedBox(
-                  height: 20,
+                  height: 10,
                 ),
                 Divider(
                   thickness: 1,
@@ -48,10 +49,13 @@ class FavouritePage extends StatelessWidget {
                             ),
                             Row(
                               children: [
-                                Image.network(
-                                  data["image"],
+                                CachedNetworkImage(
+                                  imageUrl: data['image'],
                                   width: 70,
                                   height: 70,
+                                  placeholder: (context, url) => Center(
+                                    child: CircularProgressIndicator(),
+                                  ),
                                 ),
                                 SizedBox(
                                   width: 20,

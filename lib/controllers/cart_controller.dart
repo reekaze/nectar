@@ -71,4 +71,10 @@ class CartController extends GetxController {
       "products": [...cartsData]
     });
   }
+
+  checkOut() async {
+    //proceed to checkout
+    await FirebaseFirestore.instance.collection("carts").doc(uid).delete();
+    await getData();
+  }
 }

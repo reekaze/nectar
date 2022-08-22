@@ -8,7 +8,7 @@ import 'package:get/get.dart';
 import 'package:nectar/controllers/cart_controller.dart';
 import 'package:nectar/controllers/favourite_controller.dart';
 import 'package:nectar/controllers/home_controller.dart';
-import 'package:nectar/pages/Explore.dart';
+import 'package:nectar/pages/explore.dart';
 import 'package:nectar/pages/account.dart';
 import 'package:nectar/pages/cart.dart';
 import 'package:nectar/pages/favourite.dart';

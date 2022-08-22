@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -51,10 +52,13 @@ class CartPage extends StatelessWidget {
                             IntrinsicHeight(
                               child: Row(
                                 children: [
-                                  Image.network(
-                                    cartController.productInfoData[index]["image"],
+                                  CachedNetworkImage(
+                                    imageUrl: cartController.productInfoData[index]["image"],
                                     height: 70,
                                     width: 70,
+                                    placeholder: (context, url) => Center(
+                                      child: CircularProgressIndicator(),
+                                    ),
                                   ),
                                   SizedBox(
                                     width: 20,
@@ -164,7 +168,7 @@ class CartPage extends StatelessWidget {
                   ).toList(),
                 SizedBox(
                   height: 80,
-                )
+                ),
               ],
             ),
             if (cartController.cartsData.isEmpty && cartController.isLoading.isFalse)
@@ -194,7 +198,9 @@ class CartPage extends StatelessWidget {
                     width: MediaQuery.of(context).size.width * 0.85,
                     height: 60,
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        bottomSheet();
+                      },
                       child: SizedBox(
                         width: MediaQuery.of(context).size.width,
                         child: Stack(
@@ -231,10 +237,255 @@ class CartPage extends StatelessWidget {
                     ),
                   ),
                 ),
-              )
+              ),
           ],
         ),
       ),
     );
   }
+
+  Future<dynamic> bottomSheet() => Get.bottomSheet(
+        DraggableScrollableSheet(
+          initialChildSize: 1,
+          builder: (context, scrollController) {
+            return Container(
+              child: ListView(
+                controller: scrollController,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.all(20),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Checkout",
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 22,
+                          ),
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.pop(context);
+                          },
+                          child: Icon(
+                            Icons.close,
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                  Divider(
+                    color: Color(0XFFE2E2E2),
+                    thickness: 1,
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(left: 20, right: 20, bottom: 20, top: 10),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              "Delivery",
+                              style: TextStyle(
+                                color: Color(0XFF7C7C7C),
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16,
+                              ),
+                            ),
+                            Row(
+                              children: [
+                                Text(
+                                  "Select Method",
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 14,
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                Icon(Icons.keyboard_arrow_right)
+                              ],
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Divider(
+                          color: Color(0XFFE2E2E2),
+                          thickness: 1,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              "Payment",
+                              style: TextStyle(
+                                color: Color(0XFF7C7C7C),
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16,
+                              ),
+                            ),
+                            Row(
+                              children: [
+                                Image.asset("assets/images/card.png"),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                Icon(Icons.keyboard_arrow_right)
+                              ],
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Divider(
+                          color: Color(0XFFE2E2E2),
+                          thickness: 1,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              "Promo Code",
+                              style: TextStyle(
+                                color: Color(0XFF7C7C7C),
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16,
+                              ),
+                            ),
+                            Row(
+                              children: [
+                                Text(
+                                  "Pick Discount",
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 14,
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                Icon(Icons.keyboard_arrow_right)
+                              ],
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Divider(
+                          color: Color(0XFFE2E2E2),
+                          thickness: 1,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              "Total cost",
+                              style: TextStyle(
+                                color: Color(0XFF7C7C7C),
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16,
+                              ),
+                            ),
+                            Row(
+                              children: [
+                                Text(
+                                  "\$ ${cartController.totalPrice.toStringAsFixed(2)}",
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 14,
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                Icon(Icons.keyboard_arrow_right)
+                              ],
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Divider(
+                          color: Color(0XFFE2E2E2),
+                          thickness: 1,
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Text(
+                          "By placing an order you agree to our",
+                          style: TextStyle(
+                            color: Color(0XFF7C7C7C),
+                            fontWeight: FontWeight.bold,
+                            fontSize: 12,
+                          ),
+                        ),
+                        RichText(
+                          text: TextSpan(
+                            children: [
+                              TextSpan(
+                                text: "Terms ",
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 12,
+                                ),
+                              ),
+                              TextSpan(
+                                text: "And ",
+                                style: TextStyle(
+                                  color: Color(0XFF7C7C7C),
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 12,
+                                ),
+                              ),
+                              TextSpan(
+                                text: "Conditions",
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 12,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Center(
+                          child: CustomElevatedButton(
+                            text: "Place Order",
+                            size: 16,
+                            onPressed: () async {
+                              await cartController.checkOut();
+                              Navigator.pop(context);
+                              Get.offNamed('/orderAccepted');
+                            },
+                          ),
+                        )
+                      ],
+                    ),
+                  )
+                ],
+              ),
+              decoration:
+                  BoxDecoration(color: Colors.white, borderRadius: BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20))),
+            );
+          },
+        ),
+      );
 }
