@@ -1,7 +1,6 @@
 import 'dart:developer';
 
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:nectar/controllers/phone_number_controller.dart';
@@ -45,8 +44,6 @@ class VerificationController extends GetxController {
   _verificationCompleted(PhoneAuthCredential phoneAuthCredential) async {}
   _verificationFailed(FirebaseAuthException e) {
     if (e.code == 'invalid-phone-number') {
-      print('the provided phone number is invalids');
-
       Get.back();
       Get.snackbar("invalid number", "change phone number");
     }
@@ -54,13 +51,12 @@ class VerificationController extends GetxController {
 
   _codeSent(String verificationId, int? resendToken) async {
     this.verificationId.value = verificationId;
-    inspect(verificationId);
     this.resendToken = resendToken;
   }
 
   _codeAutoRetrievalTimeout(String verificationId, String from) {
     if (!killTimeOut.value) {
-      Get.snackbar("time out", "please resend code ${from}");
+      Get.snackbar("time out", "please resend code $from");
       isResendVisible.value = true;
     }
   }

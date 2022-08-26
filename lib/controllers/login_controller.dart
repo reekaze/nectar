@@ -19,22 +19,16 @@ class LoginController extends GetxController {
     if (!checkEmailRegex.value) {
       Get.snackbar("Email not valid", "Please change email");
     } else if (passwordController.value.text.length < 6) {
-      Get.snackbar(
-          "Password length less than 6", "Please change your password");
+      Get.snackbar("Password length less than 6", "Please change your password");
     } else {
       try {
-        await FirebaseAuth.instance.signInWithEmailAndPassword(
-            email: emailController.value.text,
-            password: passwordController.value.text);
+        await FirebaseAuth.instance.signInWithEmailAndPassword(email: emailController.value.text, password: passwordController.value.text);
         //sucess login
         Get.offAllNamed("/home");
       } on FirebaseAuthException catch (e) {
         if (e.code == 'user-not-found') {
-          print('user not found for that email');
-          Get.snackbar(
-              "user not found for that email", "please change your email");
+          Get.snackbar("user not found for that email", "please change your email");
         } else if (e.code == 'wrong-password') {
-          print('wrong password');
           Get.snackbar("Wrong password", "please change password");
         }
       }

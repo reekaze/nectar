@@ -1,8 +1,4 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:nectar/controllers/cart_controller.dart';
@@ -58,7 +54,7 @@ class HomePage extends StatelessWidget {
                 BottomNavigationBarItem(
                     icon: SvgPicture.asset(
                       "assets/images/shop.svg",
-                      color: homeController.selectedNavBar == 0 ? Color(0XFF53B175) : Colors.black,
+                      color: homeController.selectedNavBar.value == 0 ? Color(0XFF53B175) : Colors.black,
                     ),
                     label: "Shop"),
                 BottomNavigationBarItem(
@@ -66,7 +62,7 @@ class HomePage extends StatelessWidget {
                       height: 24,
                       child: SvgPicture.asset(
                         "assets/images/explore.svg",
-                        color: homeController.selectedNavBar == 1 ? Color(0XFF53B175) : Colors.black,
+                        color: homeController.selectedNavBar.value == 1 ? Color(0XFF53B175) : Colors.black,
                       ),
                     ),
                     label: "Explore"),
@@ -75,20 +71,20 @@ class HomePage extends StatelessWidget {
                       height: 24,
                       child: SvgPicture.asset(
                         "assets/images/cart.svg",
-                        color: homeController.selectedNavBar == 2 ? Color(0XFF53B175) : Colors.black,
+                        color: homeController.selectedNavBar.value == 2 ? Color(0XFF53B175) : Colors.black,
                       ),
                     ),
                     label: "Cart"),
                 BottomNavigationBarItem(
                     icon: SvgPicture.asset(
                       "assets/images/favourite.svg",
-                      color: homeController.selectedNavBar == 3 ? Color(0XFF53B175) : Colors.black,
+                      color: homeController.selectedNavBar.value == 3 ? Color(0XFF53B175) : Colors.black,
                     ),
                     label: "Favourite"),
                 BottomNavigationBarItem(
                     icon: SvgPicture.asset(
                       "assets/images/account.svg",
-                      color: homeController.selectedNavBar == 4 ? Color(0XFF53B175) : Colors.black,
+                      color: homeController.selectedNavBar.value == 4 ? Color(0XFF53B175) : Colors.black,
                     ),
                     label: "Account"),
               ],

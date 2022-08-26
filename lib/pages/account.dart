@@ -1,9 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 import 'package:nectar/controllers/account_controller.dart';
 
@@ -112,6 +108,7 @@ class AccountPage extends StatelessWidget {
               height: 60,
               child: ElevatedButton(
                 onPressed: () {
+                  FirebaseAuth.instance.signOut();
                   Get.offAllNamed('/login');
                 },
                 child: Stack(

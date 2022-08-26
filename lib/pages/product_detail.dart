@@ -2,7 +2,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:nectar/controllers/product_detail_controller.dart';
-import 'package:nectar/main.dart';
 import 'package:nectar/widgets/custom_elevated_button.dart';
 import 'package:nectar/widgets/custom_scaffold.dart';
 import 'package:get/get.dart';
@@ -41,11 +40,11 @@ class ProductDetailPage extends StatelessWidget {
                 ),
                 Obx(
                   () {
-                    if (productDetailController.isLoading.value == true)
+                    if (productDetailController.isLoading.value == true) {
                       return Center(
                         child: CircularProgressIndicator(),
                       );
-                    else {
+                    } else {
                       return Column(
                         children: [
                           ClipRRect(

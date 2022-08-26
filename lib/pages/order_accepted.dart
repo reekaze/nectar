@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/route_manager.dart';
 import 'package:nectar/widgets/custom_elevated_button.dart';
 import 'package:nectar/widgets/custom_scaffold.dart';

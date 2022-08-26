@@ -1,5 +1,4 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -22,9 +21,7 @@ class SignUpController extends GetxController {
         .hasMatch(email);
 
     if (checkEmailRegex.value) {
-      print("lolos regex");
-      final list =
-          await FirebaseAuth.instance.fetchSignInMethodsForEmail(email);
+      final list = await FirebaseAuth.instance.fetchSignInMethodsForEmail(email);
       if (list.isNotEmpty) {
         isEmailExist.value = true;
         isEmailControllerEmpty.value = false;

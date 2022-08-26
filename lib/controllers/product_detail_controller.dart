@@ -70,7 +70,7 @@ class ProductDetailController extends GetxController {
 
   getFavourite() async {
     var resp = await FirebaseFirestore.instance.collection("favourite").doc(uid).get();
-    ;
+
     if (resp.data()?["products"] != null) {
       listFavourite.value = resp.data()!["products"];
       for (var i = 0; i < listFavourite.length; i++) {

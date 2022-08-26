@@ -1,8 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:nectar/pages/explore_detail.dart';
 import 'package:nectar/pages/get_started.dart';
 import 'package:nectar/pages/home.dart';
 import 'package:nectar/pages/login.dart';
@@ -26,13 +27,26 @@ main() async {
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
+  initRoute() {
+    if (FirebaseAuth.instance.currentUser != null) {
+      return "/home";
+    } else {
+      return "/getStarted";
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: "Nectar",
-      theme: ThemeData(fontFamily: "Poppins", accentColor: Color(0XFF53B175)),
-      initialRoute: 'getStarted',
+      theme: ThemeData(
+        fontFamily: "Poppins",
+        colorScheme: ColorScheme.fromSwatch().copyWith(
+          secondary: Color(0XFF53B175),
+        ),
+      ),
+      initialRoute: initRoute(),
       getPages: [
         GetPage(name: '/getStarted', page: () => GetStartedPage()),
         GetPage(name: '/login', page: () => LoginPage()),
@@ -43,6 +57,7 @@ class MyApp extends StatelessWidget {
         GetPage(name: '/home', page: () => HomePage()),
         GetPage(name: '/productDetail', page: () => ProductDetailPage()),
         GetPage(name: '/orderAccepted', page: () => OrderAcceptedPage()),
+        GetPage(name: '/exploreDetail', page: () => ExploreDetailPage()),
       ],
     );
   }

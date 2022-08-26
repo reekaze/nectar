@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
@@ -25,49 +23,37 @@ class ShopController extends GetxController {
   }
 
   getUserData() async {
-    var data = await FirebaseFirestore.instance
-        .collection("users")
-        .doc(FirebaseAuth.instance.currentUser!.uid)
-        .get();
+    var data = await FirebaseFirestore.instance.collection("users").doc(FirebaseAuth.instance.currentUser!.uid).get();
     user.value = data.data() as Map<String, dynamic>;
   }
 
   getExclussiveOffer() async {
-    var data = await FirebaseFirestore.instance
-        .collection("products")
-        .where("tag", isEqualTo: "exclussive offer")
-        .get();
+    var data = await FirebaseFirestore.instance.collection("products").where("tag", isEqualTo: "exclussive offer").get();
     exclusiveOffer.value = data.docs.map((data) {
       var temp = data.data();
       temp.addAll({'productId': data.id});
       return temp;
-    }).toList() as List<Map<String, dynamic>>;
+    }).toList();
     isExclusifeOfferLoading.value = false;
   }
 
   getBestSelling() async {
-    var data = await FirebaseFirestore.instance
-        .collection("products")
-        .where("tag", isEqualTo: "best selling")
-        .get();
+    var data = await FirebaseFirestore.instance.collection("products").where("tag", isEqualTo: "best selling").get();
     bestSelling.value = data.docs.map((data) {
       var temp = data.data();
       temp.addAll({'productId': data.id});
       return temp;
-    }).toList() as List<Map<String, dynamic>>;
+    }).toList();
     isBestSellingLoading.value = false;
   }
 
   getGroceries() async {
-    var data = await FirebaseFirestore.instance
-        .collection("products")
-        .where("tag", isEqualTo: "groceries")
-        .get();
+    var data = await FirebaseFirestore.instance.collection("products").where("tag", isEqualTo: "groceries").get();
     groceries.value = data.docs.map((data) {
       var temp = data.data();
       temp.addAll({'productId': data.id});
       return temp;
-    }).toList() as List<Map<String, dynamic>>;
+    }).toList();
     isGroceriesLoading.value = false;
   }
 }

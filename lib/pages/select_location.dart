@@ -1,7 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 import 'package:nectar/controllers/select_location_controller.dart';
 import 'package:nectar/widgets/custom_elevated_button.dart';
@@ -10,6 +7,7 @@ import 'package:nectar/widgets/custom_scaffold.dart';
 class SelectLocationPage extends StatelessWidget {
   SelectLocationPage({Key? key}) : super(key: key);
   SelectLocationController selectLocationController = Get.put(SelectLocationController());
+  GlobalKey<FormFieldState> _key = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
@@ -94,10 +92,11 @@ class SelectLocationPage extends StatelessWidget {
                               }).toList(),
                               onChanged: (value) async {
                                 selectLocationController.changeSelectedCountryCode(value.toString());
-                                await selectLocationController.getCities(value.toString());
                                 String countryName = selectLocationController.country.firstWhere((country) => country.code == value.toString()).name;
                                 selectLocationController.changeSelectedCountryName(countryName);
-                                print(selectLocationController.selectedCountryName);
+                                _key.currentState!.reset();
+                                await selectLocationController.getCities();
+                                selectLocationController.selectedCityName.value = "";
                               },
                             ),
                           ),
@@ -115,8 +114,9 @@ class SelectLocationPage extends StatelessWidget {
                             child: DropdownButtonFormField(
                               icon: Icon(Icons.keyboard_arrow_down),
                               decoration: InputDecoration(border: InputBorder.none),
-                              value: selectLocationController.city.isEmpty ? "" : selectLocationController.city[0].id,
-                              hint: selectLocationController.selectedCountryName.isEmpty ? Text("Select your country first") : Text("wait"),
+                              key: _key,
+                              hint:
+                                  selectLocationController.selectedCountryName.isEmpty ? Text("Select your country first") : Text("Select your city"),
                               items: selectLocationController.city.map((city) {
                                 return DropdownMenuItem(
                                     value: city.id,
@@ -128,7 +128,6 @@ class SelectLocationPage extends StatelessWidget {
                               onChanged: (value) {
                                 String cityName = selectLocationController.city.firstWhere((city) => city.id == value.toString()).name;
                                 selectLocationController.changeSelectedCityName(cityName);
-                                print(selectLocationController.selectedCityName);
                               },
                             ),
                           ),

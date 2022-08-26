@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -28,8 +26,8 @@ class CustomCard extends StatelessWidget {
         Get.toNamed('/productDetail', arguments: [productId]);
       },
       child: Container(
-        width: 175,
-        height: 250,
+        width: 150,
+        height: 225,
         padding: EdgeInsets.all(12),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -116,7 +114,7 @@ class CustomCard extends StatelessWidget {
                         }
                         Get.snackbar(
                           "Success",
-                          "Add 1 ${name} to cart",
+                          "Add 1 $name to cart",
                           backgroundColor: Color(0XFF53B175).withOpacity(0.8),
                         );
                       },

@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 import 'package:nectar/controllers/sign_up_controller.dart';
 import 'package:nectar/widgets/custom_elevated_button.dart';

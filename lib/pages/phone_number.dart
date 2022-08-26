@@ -1,11 +1,7 @@
 import 'package:flag/flag.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 import 'package:nectar/controllers/phone_number_controller.dart';
-import 'package:nectar/pages/verification.dart';
 import 'package:nectar/widgets/custom_scaffold.dart';
 
 class PhoneNumberPage extends StatelessWidget {
@@ -72,7 +68,6 @@ class PhoneNumberPage extends StatelessWidget {
                                   ),
                                   isExpanded: true,
                                   items: country.map((c) {
-                                    var index = country.indexOf(c);
                                     return DropdownMenuItem(
                                         value: c[0],
                                         child: c[1] != "Other"
@@ -101,7 +96,7 @@ class PhoneNumberPage extends StatelessWidget {
                                     prefixIcon:
                                         phoneNumberController.selectedCountry.value != "" && phoneNumberController.selectedCountry.value != "0"
                                             ? Text(
-                                                "+" + phoneNumberController.selectedCountry.value.toString(),
+                                                "+${phoneNumberController.selectedCountry.value.toString()}",
                                                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                                               )
                                             : Text(""),

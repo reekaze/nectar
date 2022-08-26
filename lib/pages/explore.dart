@@ -2,9 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:get/get.dart';
+import 'package:nectar/controllers/explore_controller.dart';
 
 class ExplorePage extends StatelessWidget {
-  const ExplorePage({Key? key}) : super(key: key);
+  ExplorePage({Key? key}) : super(key: key);
+  ExploreConroller exploreConroller = Get.put(ExploreConroller());
 
   @override
   Widget build(BuildContext context) {
@@ -47,13 +50,53 @@ class ExplorePage extends StatelessWidget {
             height: 10,
           ),
           GridView.count(
+            physics: ScrollPhysics(),
             shrinkWrap: true,
             crossAxisCount: 2,
+            crossAxisSpacing: 10,
+            mainAxisSpacing: 10,
             children: [
-              Text("data"),
-              Text("data"),
-              Text("data"),
-              Text("data"),
+              ...exploreConroller.productTypes.map((type) {
+                return GestureDetector(
+                  onTap: () {
+                    Get.toNamed(
+                      '/exploreDetail',
+                      arguments: [type[0], type[4]],
+                    );
+                  },
+                  child: Card(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset(
+                          "assets/images/${type[1]}",
+                          width: 80,
+                          height: 80,
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Text(
+                          type[0],
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14,
+                          ),
+                        )
+                      ],
+                    ),
+                    color: type[3],
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(18),
+                      side: BorderSide(
+                        color: type[2].withOpacity(0.7),
+                      ),
+                    ),
+                  ),
+                );
+              }).toList()
             ],
           )
         ],

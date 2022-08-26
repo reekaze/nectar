@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/state_manager.dart';
@@ -9,7 +7,7 @@ class FavouriteController extends GetxController {
   var uid = FirebaseAuth.instance.currentUser!.uid;
   var isLoading = true.obs;
   List<dynamic> listProducts = [];
-  var listFavouriteId;
+  var listFavouriteId = [];
   var isFirstTimeAdd = true.obs;
 
   getData() async {

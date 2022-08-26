@@ -153,26 +153,24 @@ class LoginPage extends StatelessWidget {
                             Expanded(
                               child: ElevatedButton(
                                 onPressed: () {},
-                                child: Container(
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                    children: [
-                                      SizedBox(
-                                        width: 20,
-                                        height: 20,
-                                        child: Image.asset(
-                                          "assets/images/google.png",
-                                        ),
-                                      ),
-                                      Text(
-                                        "Google",
-                                        style: TextStyle(color: Colors.black),
-                                      ),
-                                    ],
-                                  ),
-                                ),
                                 style: ElevatedButton.styleFrom(
                                     primary: Colors.white, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(19))),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    SizedBox(
+                                      width: 20,
+                                      height: 20,
+                                      child: Image.asset(
+                                        "assets/images/google.png",
+                                      ),
+                                    ),
+                                    Text(
+                                      "Google",
+                                      style: TextStyle(color: Colors.black),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                             SizedBox(
@@ -181,6 +179,8 @@ class LoginPage extends StatelessWidget {
                             Expanded(
                               child: ElevatedButton(
                                 onPressed: () {},
+                                style: ElevatedButton.styleFrom(
+                                    primary: Color(0XFF3a5897), shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(19))),
                                 child: Container(
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -199,8 +199,6 @@ class LoginPage extends StatelessWidget {
                                     ],
                                   ),
                                 ),
-                                style: ElevatedButton.styleFrom(
-                                    primary: Color(0XFF3a5897), shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(19))),
                               ),
                             ),
                           ],
