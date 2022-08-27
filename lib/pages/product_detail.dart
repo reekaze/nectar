@@ -50,12 +50,15 @@ class ProductDetailPage extends StatelessWidget {
                           ClipRRect(
                             borderRadius: BorderRadius.circular(25),
                             child: Container(
-                              child: CachedNetworkImage(
-                                imageUrl: productDetailController.product.value.image as String,
-                                width: MediaQuery.of(context).size.width,
-                                height: 300,
-                                placeholder: (context, url) => Center(
-                                  child: CircularProgressIndicator(),
+                              child: Hero(
+                                tag: productDetailController.productId,
+                                child: CachedNetworkImage(
+                                  imageUrl: productDetailController.product.value.image as String,
+                                  width: MediaQuery.of(context).size.width,
+                                  height: 300,
+                                  placeholder: (context, url) => Center(
+                                    child: CircularProgressIndicator(),
+                                  ),
                                 ),
                               ),
                               decoration: BoxDecoration(color: Color(0XFFF2F3F2)),

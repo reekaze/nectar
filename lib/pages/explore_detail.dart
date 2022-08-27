@@ -16,57 +16,73 @@ class ExploreDetailPage extends StatelessWidget {
     return CustomScaffold(
       body: SafeArea(
         child: Obx(
-          () => ListView(
-            padding: EdgeInsets.all(20),
+          () => Stack(
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              ListView(
+                padding: EdgeInsets.all(20),
                 children: [
-                  GestureDetector(
-                    onTap: () {
-                      Get.back();
-                    },
-                    child: Icon(Icons.keyboard_arrow_left),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          Get.back();
+                        },
+                        child: Icon(Icons.keyboard_arrow_left),
+                      ),
+                      Text(
+                        title,
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18,
+                        ),
+                      ),
+                      SvgPicture.asset("assets/images/filter.svg")
+                    ],
                   ),
-                  Text(
-                    title,
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18,
-                    ),
+                  SizedBox(
+                    height: 20,
                   ),
-                  SvgPicture.asset("assets/images/filter.svg")
+                  if (exploreDetailController.isLoading.isTrue)
+                    Center(
+                      child: CircularProgressIndicator(),
+                    )
+                  else if (exploreDetailController.products.isNotEmpty)
+                    GridView.count(
+                      shrinkWrap: true,
+                      physics: ScrollPhysics(),
+                      crossAxisCount: 2,
+                      crossAxisSpacing: 10,
+                      mainAxisSpacing: 10,
+                      childAspectRatio: 150 / 225,
+                      children: [
+                        ...exploreDetailController.products.map((product) {
+                          return CustomCard(
+                            name: product.name ?? "",
+                            image: product.image ?? "",
+                            price: product.price ?? "",
+                            unit: product.unit ?? "",
+                            productId: product.productId ?? "",
+                          );
+                        }).toList()
+                      ],
+                    )
                 ],
               ),
-              SizedBox(
-                height: 20,
-              ),
-              if (exploreDetailController.isLoading.isTrue)
-                Center(
-                  child: CircularProgressIndicator(),
-                )
-              else if (exploreDetailController.products.isEmpty)
-                Text("data empty")
-              else
-                GridView.count(
-                  shrinkWrap: true,
-                  physics: ScrollPhysics(),
-                  crossAxisCount: 2,
-                  crossAxisSpacing: 10,
-                  mainAxisSpacing: 10,
-                  childAspectRatio: 150 / 225,
-                  children: [
-                    ...exploreDetailController.products.map((product) {
-                      return CustomCard(
-                        name: product.name ?? "",
-                        image: product.image ?? "",
-                        price: product.price ?? "",
-                        unit: product.unit ?? "",
-                        productId: product.productId ?? "",
-                      );
-                    }).toList()
-                  ],
+              if (!exploreDetailController.isLoading.value && exploreDetailController.products.isEmpty)
+                Align(
+                  alignment: Alignment.center,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image.asset("assets/images/empty box.png"),
+                      Text(
+                        "Not Found",
+                        style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 18),
+                      )
+                    ],
+                  ),
                 )
             ],
           ),

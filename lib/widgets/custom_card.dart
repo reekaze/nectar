@@ -33,14 +33,17 @@ class CustomCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Center(
-              child: SizedBox(
-                  height: 100,
-                  width: 100,
-                  child: CachedNetworkImage(
-                    imageUrl: image,
-                    fit: BoxFit.contain,
-                    placeholder: (context, url) => Center(child: CircularProgressIndicator()),
-                  )),
+              child: Hero(
+                tag: productId,
+                child: SizedBox(
+                    height: 100,
+                    width: 100,
+                    child: CachedNetworkImage(
+                      imageUrl: image,
+                      fit: BoxFit.contain,
+                      placeholder: (context, url) => Center(child: CircularProgressIndicator()),
+                    )),
+              ),
             ),
             SizedBox(
               height: 20,

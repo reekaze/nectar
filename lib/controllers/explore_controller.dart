@@ -1,7 +1,32 @@
+import 'dart:developer';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/state_manager.dart';
+import 'package:nectar/models/product.dart';
 
 class ExploreConroller extends GetxController {
+  @override
+  void onInit() async {
+    // TODO: implement onInit
+    super.onInit();
+
+    res = await FirebaseFirestore.instance.collection("products").get();
+  }
+
+  var search = TextEditingController().obs;
+  var search2 = TextEditingController().obs;
+  var focusNode = FocusNode().obs;
+  var focusNode2 = FocusNode().obs;
+  var isVisible = true.obs;
+  var isVisible2 = false.obs;
+  var uid = FirebaseAuth.instance.currentUser!.uid;
+  var products = <Product>[].obs;
+  var isLoading = true.obs;
+  var res;
+
   List<dynamic> productTypes = [
     [
       "Fresh Fruit & Vegetables",
@@ -46,4 +71,21 @@ class ExploreConroller extends GetxController {
       ["beverages"]
     ],
   ];
+
+  getSearchData(String text) async {
+    isLoading.value = true;
+    products.clear();
+    if (res.docs.length > 0) {
+      for (var i = 0; i < res.docs.length; i++) {
+        if (res.docs[i].data()["name"].toLowerCase().contains(text.toLowerCase())) {
+          Map<String, dynamic> json = res.docs[i].data();
+          json.addAll({
+            "productId": res.docs[i].id,
+          });
+          products.add(Product.fromJson(json));
+        }
+      }
+    }
+    isLoading.value = false;
+  }
 }

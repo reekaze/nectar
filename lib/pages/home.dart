@@ -28,6 +28,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Obx(
       () => CustomScaffold(
+        resizeToAvoidBottomInset: false,
         body: pages[homeController.selectedNavBar.value],
         bottomNavigationBar: Container(
           decoration: BoxDecoration(
