@@ -42,24 +42,6 @@ class ShopPage extends StatelessWidget {
               SizedBox(
                 height: 20,
               ),
-              SizedBox(
-                width: MediaQuery.of(context).size.width - 40,
-                child: TextField(
-                    decoration: InputDecoration(
-                  border: OutlineInputBorder(borderSide: BorderSide.none, borderRadius: BorderRadius.circular(15)),
-                  filled: true,
-                  fillColor: Color(0XFFf2f3f2),
-                  hintText: "Search Store",
-                  hintStyle: TextStyle(color: Color(0XFF7c7c7c), fontWeight: FontWeight.bold),
-                  prefixIcon: Icon(
-                    Icons.search,
-                    color: Colors.black,
-                    size: 25,
-                  ),
-                  isDense: true,
-                )),
-              ),
-              SizedBox(height: 15),
               //caraousel
               carousel(context),
               SizedBox(height: 20),
