@@ -11,7 +11,7 @@ class PhoneNumberPage extends StatelessWidget {
     ["60", "MY"],
     ["65", "SG"],
     ["1", "US"],
-    ["0", "Other"]
+    ["", "Other"]
   ];
 
   PhoneNumberController phoneNumberController = Get.put(PhoneNumberController());
